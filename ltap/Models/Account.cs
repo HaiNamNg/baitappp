@@ -5,10 +5,7 @@ using System.Web;
 
 namespace ltap.Models
 {
-    public class Person
+    public class Account
     {
-        public string PersonID { get; set; }
-        public string PersonName { get; set; }
-        
     }
 }

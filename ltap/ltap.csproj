@@ -140,6 +140,7 @@
       <DependentUpon>202109081039063_Create_Table_SinhVien.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\Account.cs" />
     <Compile Include="Models\LapTrinhQuanLyDBcontext.cs" />
     <Compile Include="Models\Person.cs" />
     <Compile Include="Models\SinhVien.cs" />

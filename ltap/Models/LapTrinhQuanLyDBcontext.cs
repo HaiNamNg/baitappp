@@ -12,9 +12,9 @@ namespace ltap.Models
         {
         }
 
-        public virtual<acc> Students { get; set; }
+        public virtual DbSet<Account> Accounts { get; set; }
         public DbSet<Student> Students { get; set; }
-        public DbSet<SinhVien> SinhViens { get; set; }
+        public DbSet<Person> Persons { get; set; }
     
     }
 }
