@@ -15,7 +15,7 @@ namespace ltap.Models
         public virtual<acc> Students { get; set; }
         public DbSet<Student> Students { get; set; }
         public DbSet<SinhVien> SinhViens { get; set; }
-
+    
     }
 }
 //DESKTOP-GIPHEE4\SQLEXPRESS
