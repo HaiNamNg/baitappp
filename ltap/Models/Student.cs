@@ -12,6 +12,11 @@ namespace ltap.Models
     {
         [Key]
         public string StudentID { get; set; }
+        [Required(ErrorMessage ="Ten sinh vien khong duoc de trong")]
+        [MinLength(3)]
         public string StudentName { get; set; }
+        [Required]
+        public string Address { get; set; }
+
     }
 }

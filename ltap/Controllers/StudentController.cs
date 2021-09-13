@@ -21,5 +21,17 @@ namespace ltap.Controllers
         {
             return View();
         }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create(Student std)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Students.Add(std);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View();
+        }
     }
 }
