@@ -1,4 +1,4 @@
-﻿    using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -10,120 +10,107 @@ using ltap.Models;
 
 namespace ltap.Controllers
 {
-    public class PersonController : Controller
+    public class EmployeesController : Controller
     {
-        //khai bao dbcontext de lam viec voi database
         private LapTrinhQuanLyDBcontext db = new LapTrinhQuanLyDBcontext();
 
-        // GET: Person
+        // GET: Employees
         public ActionResult Index()
         {
-            //tra ve view index kem theo list danh sach person trong database
             return View(db.Persons.ToList());
         }
 
-        // GET: Person/Details/5
+        // GET: Employees/Details/5
         public ActionResult Details(string id)
         {
-            //neu id truyen vao = null thi tra trang badrequest
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            //tim kiem person theo id duoc gui len
-            Person person = db.Persons.Find(id);
-            if (person == null)
+            Employee employee = db.Employees.Find(id);
+            if (employee == null)
             {
-                //tra ve trang notfound neu khong tim thay du lieu
                 return HttpNotFound();
             }
-            //tra ve view kem theo thong tin cua person tim duoc
-            return View(person);
+            return View(employee);
         }
 
-        // GET: Person/Create
+        // GET: Employees/Create
         public ActionResult Create()
         {
-            //tra ve view de cho nguoi dung nhap thong tin  
             return View();
         }
 
-        // POST: Person/Create
+        // POST: Employees/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        //qua ly phien lam viec gui cilent va sever
         [ValidateAntiForgeryToken]
-        //nhan gia tri cac thuoc tinh tu client gui len
-        public ActionResult Create(Person person)
+        public ActionResult Create([Bind(Include = "PersonID,PersonName,Company,Address")] Employee employee)
         {
-            //neu thoa man rang buoc ve du lieu
             if (ModelState.IsValid)
             {
-                //add doi tuong gui len tu pha client vao dbcontext
-                db.Persons.Add(person);
-                //luu thay doi vao database
+                db.Persons.Add(employee);
                 db.SaveChanges();
-                //dieu huong ve action index
                 return RedirectToAction("Index");
             }
-            //giu nguyen view creat kem thong bao loi
-            return View(person);
+
+            return View(employee);
         }
 
-        // GET: Person/Edit/5
+        // GET: Employees/Edit/5
         public ActionResult Edit(string id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Person person = db.Persons.Find(id);
-            if (person == null)
+            Employee employee = db.Employees.Find(id);
+            if (employee == null)
             {
                 return HttpNotFound();
             }
-            return View(person);
+            return View(employee);
         }
 
-        // POST: Person/Edit/5
+        // POST: Employees/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "PersonID,PersonName")] Person person)
+        public ActionResult Edit([Bind(Include = "PersonID,PersonName,Company,Address")] Employee employee)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(person).State = EntityState.Modified;
+                db.Entry(employee).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(person);
+            return View(employee);
         }
 
-        // GET: Person/Delete/5
+        // GET: Employees/Delete/5
         public ActionResult Delete(string id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Person person = db.Persons.Find(id);
-            if (person == null)
+            Employee employee = db.Employees.Find(id);
+            if (employee == null)
             {
                 return HttpNotFound();
             }
-            return View(person);
+            return View(employee);
         }
 
-        // POST: Person/Delete/5
+        // POST: Employees/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(string id)
         {
-            Person person = db.Persons.Find(id);
-            db.Persons.Remove(person);
+            Employee employee = db.Employees.Find(id);
+            db.Persons.Remove(employee);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
