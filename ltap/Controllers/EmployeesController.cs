@@ -17,7 +17,7 @@ namespace ltap.Controllers
         // GET: Employees
         public ActionResult Index()
         {
-            return View(db.Persons.ToList());
+            return View(db.Employees.ToList());
         }
 
         // GET: Employees/Details/5
