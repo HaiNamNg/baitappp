@@ -12,14 +12,15 @@ namespace ltap.Controllers
         {
             return View();
         }
-
+        //Co the kiem tra voi ca controler
+        [Authorize]
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
 
             return View();
         }
-
+        [Authorize]
         public ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";
