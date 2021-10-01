@@ -17,6 +17,7 @@ namespace ltap.Models
         public DbSet<Person> Persons { get; set; }
         public DbSet<Employee> Employees { get; set; }
         public DbSet<Article> Articles { get; set; }
+        public DbSet<AccountModel> AccountModels { get; set; }
     
     }
 }

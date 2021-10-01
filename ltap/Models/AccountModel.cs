@@ -8,6 +8,7 @@ namespace ltap.Models
 {
     public class AccountModel
     {
+        [Key]
         //Validation with model
         //UseName khong duoc de trong
         [Required(ErrorMessage = "Usename is required.")]
