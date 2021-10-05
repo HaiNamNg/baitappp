@@ -17,8 +17,10 @@ namespace ltap.Models
         [Key]
         [StringLength(50)]
         public string Usename { get; set; }
-
         [StringLength(50)]
         public string Password { get; set; }
+        [StringLength(10)]
+        public string RoleID { get; set; }
+        public string Username { get; internal set; }
     }
 }
