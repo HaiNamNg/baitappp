@@ -126,6 +126,10 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Areas\Admins\AdminsAreaRegistration.cs" />
+    <Compile Include="Areas\Admins\Controllers\HomeAdmController.cs" />
+    <Compile Include="Areas\Employees\Controller\HomeEmpController.cs" />
+    <Compile Include="Areas\Employees\EmployeesAreaRegistation.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ArticlesController.cs" />
     <Compile Include="Controllers\EmployeesController.cs" />
@@ -169,19 +173,36 @@
     <Compile Include="Migrations\202110051451537_Role.Designer.cs">
       <DependentUpon>202110051451537_Role.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202110051533548_add_column_account.cs" />
-    <Compile Include="Migrations\202110051533548_add_column_account.Designer.cs">
-      <DependentUpon>202110051533548_add_column_account.cs</DependentUpon>
+    <Compile Include="Migrations\202110051645038_mot_hai_ba.cs" />
+    <Compile Include="Migrations\202110051645038_mot_hai_ba.Designer.cs">
+      <DependentUpon>202110051645038_mot_hai_ba.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202110061551247_bon_nam.cs" />
+    <Compile Include="Migrations\202110061551247_bon_nam.Designer.cs">
+      <DependentUpon>202110061551247_bon_nam.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202110071713264_2.cs" />
+    <Compile Include="Migrations\202110071713264_2.Designer.cs">
+      <DependentUpon>202110071713264_2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202110071733300_7.cs" />
+    <Compile Include="Migrations\202110071733300_7.Designer.cs">
+      <DependentUpon>202110071733300_7.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202110071751372_10.cs" />
+    <Compile Include="Migrations\202110071751372_10.Designer.cs">
+      <DependentUpon>202110071751372_10.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Models\Account.cs" />
     <Compile Include="Models\AccountModel.cs" />
     <Compile Include="Models\Article.cs" />
     <Compile Include="Models\AutoGeneratekey.cs" />
     <Compile Include="Models\Employee.cs" />
+    <Compile Include="Models\Encrytion.cs" />
     <Compile Include="Models\LapTrinhQuanLyDBcontext.cs" />
     <Compile Include="Models\Person.cs" />
     <Compile Include="Models\Role.cs" />
+    <Compile Include="Models\StringProcess.cs" />
     <Compile Include="Models\Student.cs" />
     <Compile Include="Models\UsersRoleProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -203,6 +224,10 @@
     <Content Include="Scripts\ckeditor\ckeditor.asp" />
     <Content Include="Scripts\ckeditor\ckeditor.js" />
     <Content Include="Scripts\ckeditor\ckeditor.pack" />
+    <Content Include="Areas\Admins\Views\web.config" />
+    <Content Include="Areas\Employees\Views\web.config" />
+    <Content Include="Areas\Admins\Views\HomeAdm\Index.cshtml" />
+    <Content Include="Areas\Employees\Views\HomeEmp\Index.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\ckeditor\ckeditor.php" />
     <Content Include="Scripts\ckeditor\ckeditor_basic.js" />
@@ -597,9 +622,11 @@
     <Content Include="Views\Roles\Details.cshtml" />
     <Content Include="Views\Roles\Edit.cshtml" />
     <Content Include="Views\Roles\Index.cshtml" />
+    <Content Include="Views\Account\Register.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Encrytion\" />
     <Folder Include="Views\NewPerson\" />
   </ItemGroup>
   <ItemGroup>
@@ -640,8 +667,20 @@
     <EmbeddedResource Include="Migrations\202110051451537_Role.resx">
       <DependentUpon>202110051451537_Role.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202110051533548_add_column_account.resx">
-      <DependentUpon>202110051533548_add_column_account.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202110051645038_mot_hai_ba.resx">
+      <DependentUpon>202110051645038_mot_hai_ba.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202110061551247_bon_nam.resx">
+      <DependentUpon>202110061551247_bon_nam.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202110071713264_2.resx">
+      <DependentUpon>202110071713264_2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202110071733300_7.resx">
+      <DependentUpon>202110071733300_7.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202110071751372_10.resx">
+      <DependentUpon>202110071751372_10.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

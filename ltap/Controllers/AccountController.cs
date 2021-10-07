@@ -10,40 +10,104 @@ namespace ltap.Controllers
 {
     public class AccountController : Controller
     {
-        public object FormAuthentication { get; private set; }
+        LapTrinhQuanLyDBcontext db = new LapTrinhQuanLyDBcontext();
+        Encrytion enc = new Encrytion();
+        StringProcess strPro = new StringProcess();
 
-        public ViewResult Login(string returnUrl)
+
+
+        [AllowAnonymous]
+        public ActionResult Login(string returnUrl)
+
         {
-            ViewBag.returnUrl = returnUrl;
+            if (CheckSession() == 1)
+
+            {
+
+                return RedirectToAction("Index", "HomeAdmin", new { Area = "Admins" });
+            }
+            else if (CheckSession() == 2)
+
+            {
+                return RedirectToAction("Index", "HomeEmp", new { Area = "Employees" });
+
+            }
+            ViewBag.ReturnUrl = returnUrl;
             return View();
         }
-        [HttpPost]
         [AllowAnonymous]
-        [ValidateAntiForgeryToken]
-        public ActionResult login(AccountModel acc, string returnUrl)
+        [HttpPost]
+        public ActionResult Login(AccountModel acc, string returnUrl)
         {
-            //Neu vuot qua duoc validation o accountmodel
-            if (ModelState.IsValid)
+            try
             {
-                //Kiem tra thong tin dang nhap
-                if (acc.Username == "admin" && acc.Password == "123456")
+                if (!string.IsNullOrEmpty(acc.Username) && !String.IsNullOrEmpty(acc.Password))
                 {
-                    //Set Cookie
-                    FormsAuthentication.SetAuthCookie(acc.Username, true);
-                    return RedirectToLocal(returnUrl);
+                    using (var db = new LapTrinhQuanLyDBcontext())
+                    {
+                        var passToMD5 = strPro.GetMD5(acc.Password);
+                        var account = db.AccountModels.Where(m => m.Username.Equals(acc.Username) && m.Password.Equals(passToMD5)).Count();
+                        if (account == 1)
+                        {
+                            FormsAuthentication.SetAuthCookie(acc.Username, false);
+                            Session["idUser"] = acc.Username;
+                            Session["roleUser"] = acc.RoleID;
+                            return RedirectTolocal(returnUrl);
+
+                        }
+                        ModelState.AddModelError("", "Thông Tin Đăng Nhập Chưa Chính Xác");
+                    }
                 }
+                ModelState.AddModelError("", "Username and Password is require.");
+            }
+            catch
+            {
+                ModelState.AddModelError("", "Hệ thống đang bảo trì, vui lòng liên hệ với quản trị viên");
             }
             return View(acc);
         }
+        [HttpGet]
+        public ActionResult Register()
+        {
+            return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [AllowAnonymous]
+        public ActionResult Register(AccountModel acc)
+        {
+            if (ModelState.IsValid)
+            {
+                //Mã Hóa mật khẩu trước khi cho vào database
+                acc.Password = enc.PasswordEncrytion(acc.Password);
+                db.AccountModels.Add(acc);
+                db.SaveChanges();
+                return RedirectToAction("Login", "Account");
+            }
+            return View(acc);
+        }
+
         //Ham dang xuat khoi chuong trinh
         public ActionResult Logoff()
         {
             FormsAuthentication.SignOut();
-            return RedirectToAction("Index", "Home");
+            Session["iduser"] = null;
+            return RedirectToAction("Login", "Account");
         }
         //Kiem tra ReturnUrl co thuoc he thong hay khong
-         private ActionResult RedirectToLocal(string returnUrl)
+        private ActionResult RedirectTolocal(string returnUrl)
         {
+            if (string.IsNullOrEmpty(returnUrl) || returnUrl == "/")
+            {
+                if (CheckSession() == 1)
+                {
+                    return RedirectToAction("Index", "HomeAdmin", new { Area = "Admins" });
+                }
+                else if (CheckSession() == 2)
+                {
+                    return RedirectToAction("Index", "HomeEmp", new { Area = "Employees" });
+                }
+            }
             if (Url.IsLocalUrl(returnUrl))
             {
                 return Redirect(returnUrl);
@@ -52,6 +116,34 @@ namespace ltap.Controllers
             {
                 return RedirectToAction("Index", "Home");
             }
-        }       
-        }            
+        }
+        //kiem tra nguoi dung dang nhap quyen gii
+        private int CheckSession()
+        {
+            using (var db = new LapTrinhQuanLyDBcontext())
+            {
+                var user = HttpContext.Session["idUser"];
+                if (user != null)
+                {
+                    var role = db.AccountModels.Find(user.ToString()).RoleID;
+                    if (role != null)
+                    {
+                        if (role.ToString() == "Admin")
+                        {
+                            return 1;
+                        }
+                        else if (role.ToString() == "NV")
+                        {
+                            return 2;
+                        }
+
+                    }
+
+                }
+
+            }
+
+            return 0;
+        }
     }
+}

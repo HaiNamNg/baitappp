@@ -3,7 +3,7 @@ namespace ltap.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class add_column_account : DbMigration
+    public partial class _2 : DbMigration
     {
         public override void Up()
         {

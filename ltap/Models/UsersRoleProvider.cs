@@ -37,21 +37,22 @@ namespace ltap.Models
 
         public override string[] GetRolesForUser(string username)
         {
-            throw new NotImplementedException();
-        }
-
-        public override string[] GetUsersInRole(string username)
-        {
-
             using (LapTrinhQuanLyDBcontext db = new LapTrinhQuanLyDBcontext())
             {
-                var useRoles = (from user in db.Accounts
+                var useRoles = (from user in db.AccountModels
                                 join role in db.Roles
                                 on user.RoleID equals role.RoleID
                                 where user.Username == username
                                 select role.RoleID).ToArray();
                 return useRoles;
             }
+
+        }
+
+        public override string[] GetUsersInRole(string username)
+        {
+            throw new NotImplementedException();
+
         }
 
         public override bool IsUserInRole(string username, string roleName)

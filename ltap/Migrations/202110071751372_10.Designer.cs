@@ -7,13 +7,13 @@ namespace ltap.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class add_column_account : IMigrationMetadata
+    public sealed partial class _10 : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(add_column_account));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(_10));
         
         string IMigrationMetadata.Id
         {
-            get { return "202110051533548_add_column_account"; }
+            get { return "202110071751372_10"; }
         }
         
         string IMigrationMetadata.Source
